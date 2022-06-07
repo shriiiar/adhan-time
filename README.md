@@ -11,7 +11,7 @@ An Adhan times website where an user can get adhan / prayer times of today. With
 - Prayer times for 5 waqt's
 - Time difference between two contigious prayer waqt's which will update in real time
 
-## Technologies (frameworks, libraries) used in Client Side
+## Technologies used
 
 - javaScript
 - ES6
