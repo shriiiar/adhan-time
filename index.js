@@ -17,6 +17,7 @@ const autoDetectFunction = () => {
 	const addBtn = document.getElementById('add-btn');
 	const location = document.getElementById('location');
 	const loadingText = document.getElementById('loading-text');
+
 	errorText.innerHTML = "";
 	show7days.innerHTML = "";
 	engDate.innerHTML = "";
@@ -146,10 +147,10 @@ const AdhanTimes = async (city, lat, lng) => {
 
 	// console.log(date)
 
-	let newYear = date[0] + date[1] + date[2] + date[3], newMonth, newDate;
-	let newYear1 = date1[0] + date1[1] + date1[2] + date1[3], newMonth1, newDate1;
+	let newYear, newMonth, newDate, newYear1, newMonth1, newDate1;
 
 	newYear = parseInt(newYear);
+	console.log(date)
 	if (date.length == 10) newDate = parseInt(date[8] + date[9]);
 	else newDate = parseInt(date[7]);
 
@@ -162,6 +163,12 @@ const AdhanTimes = async (city, lat, lng) => {
 
 	if (date1[6] != '-') newMonth = parseInt(date1[5] + date1[6]);
 	else newMonth1 = parseInt(date1[5]);
+
+	let dateArr = date.split('-'), dateArr1 = date1.split('-')
+
+	newDate = dateArr[2], newDate1 = dateArr1[2]
+	newMonth = dateArr[1], newMonth1 = dateArr1[1]
+	newYear = dateArr[0], newYear1 = dateArr1[0]
 
 	if (city != undefined) {
 		SearchText = city;
@@ -201,9 +208,9 @@ function tConv24(time24) {
 
 const showToday = async (props, props1, city, newDate, newMonth, newYear, newDate1, newMonth1, newYear1) => {
 
-	// console.log(newDate)
+	console.log(newDate)
 	spinnerControl("d-block", "d-none");
-	// console.log(props, props1, city)
+	console.log(props, props1, city)
 	const Ptime = [];
 	let cityName = city;
 	let name = city[0].toUpperCase();
@@ -256,7 +263,7 @@ const showToday = async (props, props1, city, newDate, newMonth, newYear, newDat
 	const Asr = props[newDate - 1]?.timings?.Asr.split(' ');
 	const Maghrib = props[newDate - 1]?.timings?.Maghrib.split(' ');
 	const Isha = props[newDate - 1]?.timings?.Isha.split(' ');
-	// console.log(tConv24(Fajr[0]), tConv24(Dhuhr[0]), tConv24(Asr[0]), tConv24(Maghrib[0]), tConv24(Isha[0]));
+	console.log(tConv24(Fajr[0]), tConv24(Dhuhr[0]), tConv24(Asr[0]), tConv24(Maghrib[0]), tConv24(Isha[0]));
 
 	const addTime = document.getElementById('addTime');
 	let div3 = document.createElement('div');
@@ -276,8 +283,8 @@ const showToday = async (props, props1, city, newDate, newMonth, newYear, newDat
 	`
 	addTime.appendChild(div3);
 
-	const addBtn = document.getElementById('add-btn');
-	let div4 = document.createElement('div');
+	// const addBtn = document.getElementById('add-btn');
+	// let div4 = document.createElement('div');
 	// div4.innerHTML = `
 	//     <button onclick=showMore("${cityName}") class="button-33 flex justify-content-center my-3">Show More</button>
 	// `
@@ -449,16 +456,17 @@ function checkLeapYear(year) {
 }
 
 const showMore = async name => {
+	console.log(name)
 	const addBtn = document.getElementById('add-btn');
 	addBtn.innerHTML = "";
 	let today = new Date();
 	let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-	// console.log(date);
+	console.log(date);
 	let year = date[0] + date[1] + date[2] + date[3];
 	year = parseInt(year);
 	let leapYEar = checkLeapYear(year), dateInt, monthInt, limDate, newYear, newMonth, newDate;
-	if (date.length == 9) dateInt = parseInt(date[7] + date[8]);
+	if (date.length == 10) dateInt = parseInt(date[8] + date[9]);
 	else dateInt = parseInt(date[7]);
 
 	if (date[6] != '-') monthInt = parseInt(date[5] + date[6]);
@@ -498,7 +506,7 @@ const showMore = async name => {
 	// console.log(url);
 	const res = await fetch(url);
 	const data = await res.json();
-	// console.log(data);
+	console.log(data);
 	showData(data.results.datetime);
 }
 
@@ -527,6 +535,7 @@ const showData = data => {
 	else if (day == 6) {
 		days.push("Sunday"), days.push("Monday"), days.push("Tuesday"), days.push("Wednesday"), days.push("Thursday"), days.push("Friday"), days.push("Saturday");
 	}
+	console.log(days)
 	const show7days = document.getElementById('show7days');
 	let div1 = document.createElement('div');
 	div1.classList.add('show7days');
